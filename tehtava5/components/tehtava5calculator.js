@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, TextInput, FlatList } from 'react-native';
 
-export default function Tehtava() {
+export default function Calculator({ navigation }) {
     const [text1, setText1] = React.useState("0");
     const [text2, setText2] = React.useState("0");
     const [loppusumma, setLoppusumma] = React.useState('0');
@@ -19,7 +19,7 @@ export default function Tehtava() {
 
     function logitus(parami, tanbresult) {
         var tempvar = text1 + parami + text2 + "=" + tanbresult;
-        setHistoria([...historia, tempvar ])
+        setHistoria([...historia, tempvar])
 
     }
     return (
@@ -27,12 +27,12 @@ export default function Tehtava() {
 
 
         <View styles={{
-            flex: 3,
+            flex: 1,
             justifyContent: '',
             alignItems: 'space-between',
         }}>
 
-            {/* <View styles={{ flex: 1 }}><Text></Text></View> */}
+
             <View styles={{ flex: 1 }}>
 
                 <View styles={{ flex: 1 }}>
@@ -42,23 +42,25 @@ export default function Tehtava() {
                         <TextInput keyboardType={'numeric'} style={{ width: 200, borderColor: 'gray', borderWidth: 1 }} onChangeText={text2 => setText2(text2)} value={text2} />
                     </View>
                     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', alignContent: 'center', padding: 20 }}>
-                        <Button title="+" onPress={addaa} />
-                        <Text>     </Text>
-                        <Button title="-" onPress={vahenna} />
+                        <View style={{ margin: 5 }}>
+                            <Button title="+" onPress={addaa} />
+                        </View>
+                        <View style={{ margin: 5 }}>
+                            <Button title="-" onPress={vahenna} />
+                        </View>
+                        <View>
+                            <Button
+                                title='Historia'
+                                // call the navigate function with the name of the route that we'd like to move to
+                                onPress={() => navigation.navigate('Historia', {historia: historia})}
+                            />
+                        </View>
                     </View>
-                    <View style={{ alignItems: 'center' }}>
-                    <Text>History</Text>
-                    <FlatList
-                            data={historia}
-                            keyExtractor={(item, index) => index.toString()}
-                            renderItem={({ item }) =>
-                                    <Text>{item} </Text>
-                            } />
 
-                    </View>
                 </View>
             </View>
-            {/* <View styles={{ flex: 1 }}><Text></Text></View> */}
+
+
         </View>
 
     );
