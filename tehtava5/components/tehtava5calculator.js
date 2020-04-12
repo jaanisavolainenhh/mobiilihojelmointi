@@ -18,9 +18,10 @@ export default function Calculator({ navigation }) {
     }
 
     function logitus(parami, tanbresult) {
-        var tempvar = text1 + parami + text2 + "=" + tanbresult;
+        var tempvar = parseInt(text1) + parami + parseInt(text2) + "=" + tanbresult;
         setHistoria([...historia, tempvar])
-
+        setText1("0");
+        setText2("0");
     }
     return (
 
