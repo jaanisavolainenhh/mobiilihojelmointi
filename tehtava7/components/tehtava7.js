@@ -67,9 +67,7 @@ export default function Tehtava() {
 
             <FlatList
                 data={reseptit}
-                keyExtractor={(item, index) => {
-                    return item.index;
-                }}
+                keyExtractor={(item, index) => index.toString()}
                 renderItem={({ item }) =>
                     <View>
                         <Image

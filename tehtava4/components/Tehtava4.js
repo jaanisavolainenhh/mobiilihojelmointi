@@ -38,9 +38,7 @@ export default function Tehtava() {
                     <View style={{ alignItems: 'center' }}>
                         <FlatList
                             data={lista}
-                            keyExtractor={(item, index) => {
-                                return item.index;
-                            }}
+                            keyExtractor={(item, index) => index.toString()}
                             renderItem={({ item }) =>
                                     <Text>{item} </Text>
                             } />
