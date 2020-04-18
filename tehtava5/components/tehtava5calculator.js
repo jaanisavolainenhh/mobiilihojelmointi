@@ -57,11 +57,8 @@ export default function Calculator({ navigation }) {
                             />
                         </View>
                     </View>
-
                 </View>
             </View>
-
-
         </View>
 
     );
