@@ -6,7 +6,9 @@ import { Input, Button, Header, ListItem } from 'react-native-elements';
 
 const db = SQLite.openDatabase('ostoslista.db');
 
-export default function Tehtava() {
+export default function Luettelo({navigation}) {
+    //const {historia} = route.params;
+
     const [text1, setText1] = React.useState("");
     const [amount, setAmount] = React.useState("");
 
@@ -25,22 +27,22 @@ export default function Tehtava() {
     React.useEffect(() => {
 
         db.transaction(tx => {
-            tx.executeSql('create table if not exists ostoslista (id integer primary key not null, tavara text, maara text);');
+            tx.executeSql('create table if not exists ostoslista (id integer primary key not null, tavara text);');
         });
         updateList();
     }, []);
 
     React.useEffect(() => {
-        if (text1 == '' || amount == '') {
+        if (text1 == '' ) {
           setDisable(true);
         } else {
           setDisable(false);
         }
-      }, [text1, amount]);
+      }, [text1]);
 
     const saveItem = () => {
         db.transaction(tx => {
-            tx.executeSql('insert into ostoslista (tavara, maara) values (?, ?);', [text1, amount]);
+            tx.executeSql('insert into ostoslista (tavara) values (?);', [text1]);
         }, null, updateList
         )
     }
@@ -75,48 +77,30 @@ export default function Tehtava() {
         );
     };
 
-    //     <View style={styles.listcontainer}>
-    //     <Text>{item.tavara}, {item.maara}</Text>
-    //     <Text style={{ color: 'blue' }} onPress={() => deleteItem(item.id)}> bought</Text>
-    // </View>
+
 
     const renderItem2 = ({ item }) => (
         <ListItem
             title={item.tavara}
-            subtitle={item.maara}
-            rightSubtitle={<Text onPress={() => deleteItem(item.id)}>bought</Text>}
+            onLongPress={() => deleteItem(item.id)}
+            //subtitle={item.maara}
+            rightSubtitle={<Text onPress={() => navigation.navigate('Kartta', {sijainti : item.tavara})}>show on map</Text>}
             bottomDivider
             chevron
         />
 
     )
-    
-    function qwe(e)
-    {
-        console.log("qwe")
-        //console.log(e.target.value)
-    }
 
-    function asd(e)
-    {
-        console.log(e.target.value)
-    }
 
     return (
 
         <View style={{}}>
 
-            <Header
-                containerStyle={{ height: 40, alignContent: 'flex-start' }}
-                // leftComponent={{ icon: 'menu', color: '#fff' }}
-                centerComponent={{ text: 'Hieno lista', style: { color: '#fff' } }}
-            //rightComponent={{ icon: 'home', color: '#fff' }}
-            />
+
 
             <View style={{}}>
                 <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-                    <Input placeholder="Product" label="Product" onChangeText={text1 => setText1(text1)} value={text1} />
-                    <Input placeholder="Amount" label="Amount" style={{ borderColor: 'gray', borderWidth: 1 }} onChangeText={amount => setAmount(amount)} value={amount} />
+                    <Input placeholder="Place" label="Placefinder" onChangeText={text1 => setText1(text1)} value={text1} />
                 </View>
 
                 <Button type="solid"
@@ -134,6 +118,7 @@ export default function Tehtava() {
                 />
 
             </View>
+
         </View>
 
 

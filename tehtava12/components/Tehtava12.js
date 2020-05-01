@@ -6,8 +6,8 @@ import * as SQLite from 'expo-sqlite';
 const db = SQLite.openDatabase('ostoslista.db');
 
 export default function Tehtava() {
-    const [text1, setText1] = React.useState("Kakka");
-    const [amount, setAmount] = React.useState("Pieru");
+    const [text1, setText1] = React.useState("");
+    const [amount, setAmount] = React.useState("");
 
     const [lista, setLista] = React.useState([]);
 
